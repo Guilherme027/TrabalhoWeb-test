@@ -1,0 +1,26 @@
+<div class="chat-container">
+    <div class="header">
+      <span>Chat</span>
+      <button (click)="onLogout()">Sair</button>
+    </div>
+  
+    <div class="message-list">
+      <div *ngFor="let mensagem of mensagens" class="message">
+        <div class="message-header">
+          {{ mensagem.getUsuario().getNome() }} 
+          <span class="message-time">{{ mensagem.getCreatedAt() | date:'short' }}</span>
+        </div>
+        <div class="message-body">
+          <p>{{ mensagem.getConteudo() }}</p>
+          <img *ngIf="mensagem.getImagemUrl()" [src]="mensagem.getImagemUrl()" class="message-image" alt="Imagem da mensagem" />
+        </div>
+      </div>
+    </div>
+  
+    <form #msgForm="ngForm" (ngSubmit)="onEnviarMensagem(msgForm)" class="message-form">
+      <textarea [(ngModel)]="conteudoMensagem" name="conteudo" placeholder="Digite uma mensagem..." required></textarea>
+      <input [(ngModel)]="imagemMensagem" name="imagem" type="text" placeholder="URL da imagem (opcional)" />
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+  

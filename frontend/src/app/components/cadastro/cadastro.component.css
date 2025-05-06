@@ -1,0 +1,19 @@
+.container {
+    background-color: #f7f7f7;
+    height: 100vh;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .form-label {
+    font-weight: 600;
+  }
+  
+  .btn {
+    font-weight: 600;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  

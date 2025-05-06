@@ -1,0 +1,32 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="card shadow p-4 mb-4" style="width: 400px;">
+      <h2 class="text-center text-primary mb-4">Cadastro de Usuário</h2>
+      <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome</label>
+          <input type="text" id="nome" name="nome" class="form-control" ngModel required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-control" ngModel required>
+        </div>
+        <div class="mb-3">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" id="senha" name="senha" class="form-control" ngModel required>
+        </div>
+        <div class="mb-3">
+          <label for="funcao" class="form-label">Função</label>
+          <select id="funcao" name="funcao" class="form-select" ngModel>
+            <option value="admin">Administrador</option>
+            <option value="user">Usuário</option>
+          </select>
+        </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" id="aceitouTermos" name="aceitouTermos" class="form-check-input" ngModel required>
+          <label for="aceitouTermos" class="form-check-label">Aceito os termos de uso</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+  
