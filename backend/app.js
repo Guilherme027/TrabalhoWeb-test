@@ -1,46 +1,42 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-var path = require('path');
+const mongoose = require("mongoose");
+const path = require("path");
+const cors = require("cors");
 
-var appRoutes = require('./routes/app');
+const userRoutes = require("./routes/user");
+const messageRoutes = require("./routes/message");
+const formRoutes = require("./routes/form");
 
 const app = express();
 
-// NOVO
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://127.0.0.1:27017/MyMongoDB')
+// Conexão com MongoDB
+mongoose.connect("mongodb://127.0.0.1:27017/MyMongoDB")
   .then(() => {
-    console.log('Conexão com o MongoDB estabelecida com sucesso.');
+    console.log("Conexão com o MongoDB estabelecida com sucesso.");
   })
   .catch((error) => {
-    console.error('Erro na conexão com o MongoDB:', error);
+    console.error("Erro na conexão com o MongoDB:", error);
   });
-// NOVO
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// View engine setup (caso use handlebars no futuro)
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
 
+// Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Rotas da API
+app.use("/api/user", userRoutes);
+app.use("/api/message", messageRoutes);
+app.use("/api/form", formRoutes);
 
-// Configuração do CORS
+// Rota fallback para SPA (Angular)
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-  next();
-});
-
-app.use('/', appRoutes);
-
-// catch 404 and forward to error handler 
-app.use(function (req, res, next) {
-  return res.render('index');
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 module.exports = app;
- 

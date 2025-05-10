@@ -1,16 +1,7 @@
-var express = require('express'); 
-var router = express.Router();
+const userRoutes = require('./routes/user');
+const messageRoutes = require('./routes/message');
+const formRoutes = require('./routes/form');
 
-router.get('/', (req, res, next) => {
-    res.render('index');
-});
-
-// NOVO
-router.get('/message', (req, res, next) => {
-    res.json('index');
-});
-// NOVO
-
-module.exports = router; 
-
-  
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/forms', formRoutes);
